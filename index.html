@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,50 +11,53 @@
 
 
 <body>
-
-<div class="big_div">
-    <div class="title_div">
-        <h1>Katteraser</h1>
-    </div>
-
-
-    <div class="table_div">
-
-        <div class="input_div">
-            <input type="text" id="rasenavn" name="rasenavn"size="15" placeholder="rasenavn.." ><br>
-            <input type="text" id="størrelse" name="størrelse"size="15"placeholder="størrelse.."><br>
-            <input type="text" id="levetid" name="levetid"size="15"placeholder="levetid.."><br>
-            <input type="text" id="opprinnelse" name="oprinnelse"size="15"placeholder="opprinnelse.."><br>
-            <input type="text" id="pels" name="pels"size="15"placeholder="pels.."><br>
-            <input type="text" id="pris" name="pris"size="15"placeholder="pris.."><br>
-            <button>Lagre</button>
+    
+    <div class="big_div">
+        <div class="title_div">
+            <h1>Katteraser</h1>
         </div>
-
-        <table>
-            <tr>
-                <th>Rasenavn</th>
-                <th>Størrelse</th>
-                <th>Levetid</th>
-                <th>Opprinnelse</th>
-                <th>Pels</th>
-                <th>Pris</th>
-            </tr>
-            <tr>
-                <td>Maine Coon</td>
-                <td>48-100cm</td>
-                <td>13-15 år</td>
-                <td>Nord Amerika</td>
-                <td>Langhåret</td>
-                <td>9000-15000 kr</td>
-            </tr>
-        </table>
-
+        
+        
+        <div class="table_div">
+            
+            <div class="input_div">
+                <input type="text" id="rasenavn" size="15" placeholder="rasenavn.." ><br>
+                <input type="text" id="størrelse" size="15"placeholder="størrelse.."><br>
+                <input type="text" id="levetid" size="15"placeholder="levetid.."><br>
+                <input type="text" id="opprinnelse" size="15"placeholder="opprinnelse.."><br>
+                <input type="text" id="pels" size="15"placeholder="pels.."><br>
+                <input type="text" id="pris"size="15"placeholder="pris.."><br>
+                <button id="save">Lagre</button>
+            </div>
+            
+            <table id= "cat_table">
+                <tbody id="table_body">
+                    <tr>
+                        <th>Rasenavn</th>
+                        <th>Størrelse</th>
+                        <th>Levetid</th>
+                        <th>Opprinnelse</th>
+                        <th>Pels</th>
+                        <th>Pris</th>
+                        </tr>
+                        <tr>
+                        <td>Maine Coon</td>
+                        <td>48-100cm</td>
+                        <td>13-15 år</td>
+                        <td>Nord Amerika</td>
+                        <td>Langhåret</td>
+                        <td>9000-15000 kr</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        
+        
     </div>
-
-
-</div>
-
-
-
+    
+    
+    
+    <script src="script.js"></script>
 </body>
 </html>
