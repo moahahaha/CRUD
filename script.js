@@ -15,6 +15,7 @@ var pris_input = document.querySelector("#pris")
 
 var a=0
 var b=0
+var editing = true
 
 function removeItem(){
     this.parentNode.remove();
@@ -42,23 +43,37 @@ save_button.addEventListener("click", function(){
 
     var cat_rows = document.getElementsByClassName("row");
     for (var i = 0; i < elements.length; i++){
-        cat_rows[i].addEventListener("click", editItem);
-        console.log(cat_rows, "update events added")
+        if (editing == true) {
+            cat_rows[i].addEventListener("click", editItem);
+            console.log(cat_rows, "update events added")}
         }    
     
-    function editItem(){
-        var tds = this.childNodes
-        tds.forEach(function(node,index){
-            console.log(node)
-            node.innerHTML = "<input type='text' value='"+node.innerHTML +"'>"
-            
-        })
-        cat_rows[i].removeEventListener("click",editItem);    
-    }
-
-
+                                       
     b += 1
     a += 1
     console.log("button clicked")
 })
 
+ function editItem(){        
+    //console.log(this)   
+     
+        if (editing == (true)) {
+            editing = false
+            var tds = this.childNodes
+            console.log(tds)
+            tds.forEach(function(node,index){
+                console.log(node)
+                node.innerHTML = "<input type='text' value='"+node.innerHTML +"'>"
+
+        })
+        var active_row = this
+        
+        this.removeEventListener("click",editItem);  }  
+    }
+    window.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {  
+            console.log("enter_pressed")                                             
+            editing=true
+            
+        }
+    })
