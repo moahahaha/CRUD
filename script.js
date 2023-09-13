@@ -12,7 +12,8 @@ var opprinnelse_input = document.querySelector("#opprinnelse")
 var pels_input = document.querySelector("#pels")
 var pris_input = document.querySelector("#pris")
 
-
+var active_row
+var tds
 var a=0
 var b=0
 var editing = true
@@ -54,26 +55,40 @@ save_button.addEventListener("click", function(){
     console.log("button clicked")
 })
 
- function editItem(){        
+function editItem(){        
     //console.log(this)   
      
         if (editing == (true)) {
             editing = false
-            var tds = this.childNodes
-            console.log(tds)
+            tds = this.childNodes
+            //console.log(tds)
             tds.forEach(function(node,index){
                 console.log(node)
                 node.innerHTML = "<input type='text' value='"+node.innerHTML +"'>"
 
         })
-        var active_row = this
-        
+        active_row = this
+        //legg til eventlistener igjen-enter
         this.removeEventListener("click",editItem);  }  
     }
-    window.addEventListener("keypress", function(event) {
+    window.addEventListener("keypress", function(event, ) {
         if (event.key === "Enter") {  
             console.log("enter_pressed")                                             
-            editing=true
-            
+            editing=true 
+        
+        //console.log(active_row)
+        tds = active_row.childNodes
+
+        console.log(tds)
+
+        
+        tds.forEach(function(node,index){
+           console.log(node.firstChild)
+           console.log(node.nodeName)
+           if (node.nodeName == "TD" ) {
+               node.innerHTML = node.firstChild.value
+           }
+        })
+        
         }
     })
