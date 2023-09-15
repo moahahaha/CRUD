@@ -2,8 +2,9 @@
 
 var table = document.querySelector("#cat_table")
 var tbody = document.querySelector("#table_body")
-var save_button = document.querySelector("#save")
+var add_button = document.querySelector("#add")
 var delete_button = document.querySelector("#delete")
+var save_button = document.querySelector("#save")
 
 var rase_input = document.querySelector("#rasenavn")
 var størrelse_input = document.querySelector("#størrelse")
@@ -13,19 +14,53 @@ var pels_input = document.querySelector("#pels")
 var pris_input = document.querySelector("#pris")
 
 var active_row
-var tds
+var tds 
 var a=0
 var b=0
 var editing = true
+
+
+
+function readTable(){
+    const table = document.getElementById('cat_table').getElementsByTagName('tbody')[0];
+    const rows = table.getElementsByTagName('tr');
+    console.log(table)
+    const data = [];
+
+    for (let i = 0; i < rows.length; i++){
+        const cells = rows[i].getElementsByTagName('td');
+            if (cells.length > 0){
+            const rowData = {};
+            rowData.rase = cells[0].textContent;
+            rowData.størrelse = cells[1].textContent;
+            rowData.levetid = cells[2].textContent;
+            rowData.opprinnelse = cells[3].textContent;
+            rowData.pels = cells[4].textContent;
+            rowData.pris = cells[5].textContent;
+            data.push(rowData);
+        }
+    }
+
+    return data;
+}
+
 
 function removeItem(){
     this.parentNode.remove();
     console.log("delete button")   
 } 
 
-
-
 save_button.addEventListener("click", function(){
+    const tableData = readTable(); 
+    console.log(tableData)
+    localStorage.setItem('tableData', JSON.stringify(tableData));
+    console.log(localStorage.getItem('tableData'))
+
+})
+
+
+
+add_button.addEventListener("click", function(){
     console.log(rase_input.value)
 
     tbody.innerHTML += "<tr class='row' id='edit" +b+"'> <td>" + rase_input.value + "</td> <td>" + størrelse_input.value +
@@ -79,6 +114,9 @@ function editItem(){
         
     
     }
+
+
+
     window.addEventListener("keypress", function(event, ) {
         if (event.key === "Enter") {  
             console.log("enter_pressed")                                             
@@ -99,5 +137,5 @@ function editItem(){
         })
         
         }
-        this.addEventListener("click",editItem);
+        active_row.addEventListener("click",editItem);
     })
