@@ -63,13 +63,21 @@ function editItem(){
             tds = this.childNodes
             //console.log(tds)
             tds.forEach(function(node,index){
-                console.log(node)
-                node.innerHTML = "<input type='text' value='"+node.innerHTML +"'>"
+                console.log(node,index)
+                if (index != 13){
+                    node.innerHTML = "<input type='text' value='"+node.innerHTML +"'>"
+                } else (
+                    node.innerHTML = "Slett rad"
+                )
+                
 
         })
         active_row = this
         //legg til eventlistener igjen-enter
-        this.removeEventListener("click",editItem);  }  
+        //this.removeEventListener("click",editItem); 
+     }  
+        
+    
     }
     window.addEventListener("keypress", function(event, ) {
         if (event.key === "Enter") {  
@@ -81,7 +89,7 @@ function editItem(){
 
         console.log(tds)
 
-        
+       
         tds.forEach(function(node,index){
            console.log(node.firstChild)
            console.log(node.nodeName)
@@ -91,4 +99,5 @@ function editItem(){
         })
         
         }
+        this.addEventListener("click",editItem);
     })
