@@ -35,6 +35,7 @@ data.forEach((row) => {
     const cell4 = newRow.insertCell(3);
     const cell5 = newRow.insertCell(4);
     const cell6 = newRow.insertCell(5);
+    const cell7 = newRow.insertCell(6);
 
     cell1.textContent = row.rase;
     cell2.textContent = row.størrelse;
