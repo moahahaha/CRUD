@@ -88,7 +88,12 @@ save_button.addEventListener("click", function(){
 
 })
 
-
+ function addEventListenersToButtons() {
+        var elements = document.getElementsByClassName("btn");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener("click", removeItem);
+        }
+    }
 
 add_button.addEventListener("click", function(){
     console.log(rase_input.value)
@@ -107,14 +112,16 @@ add_button.addEventListener("click", function(){
     elements[i].addEventListener("click", removeItem);
     }
 
+    addEventListenersToButtons();
+
     var cat_rows = document.getElementsByClassName("row");
     for (var i = 0; i < elements.length; i++){
         if (editing == true) {
             cat_rows[i].addEventListener("click", editItem);
-            console.log(cat_rows, "update events added")}
+            console.log(cat_rows, "update events added")
         }    
     
-                                       
+    }                                   
     b += 1
     a += 1
     console.log("button clicked")
