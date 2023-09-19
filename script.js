@@ -20,6 +20,36 @@ var b=0
 var editing = true
 
 
+const retrievedData = localStorage.getItem('tableData');
+
+function rebuildTable(data) {
+    const table = document.getElementById('cat_table').getElementsByTagName('tbody')[0];
+    table.innerHTML = '';
+
+
+data.forEach((row) => {
+    const newRow = table.insertRow();
+    const cell1 = newRow.insertCell(0);
+    const cell2 = newRow.insertCell(1);
+    const cell3 = newRow.insertCell(2);
+    const cell4 = newRow.insertCell(3);
+    const cell5 = newRow.insertCell(4);
+    const cell6 = newRow.insertCell(5);
+
+    cell1.textContent = row.rase;
+    cell2.textContent = row.størrelse;
+    cell3.textContent = row.levetid;
+    cell4.textContent = row.opprinnelse;
+    cell5.textContent = row.pels;
+    cell6.textContent = row.pris;
+});
+}
+
+if (retrievedData) {
+    console.log(retrievedData)
+    rebuildTable(JSON.parse(retrievedData));
+  }
+
 
 function readTable(){
     const table = document.getElementById('cat_table').getElementsByTagName('tbody')[0];
@@ -52,7 +82,6 @@ function removeItem(){
 
 save_button.addEventListener("click", function(){
     const tableData = readTable(); 
-    console.log(tableData)
     localStorage.setItem('tableData', JSON.stringify(tableData));
     console.log(localStorage.getItem('tableData'))
 
@@ -106,7 +135,7 @@ function editItem(){
                 )
                 
 
-        })
+        });
         active_row = this
         //legg til eventlistener igjen-enter
         //this.removeEventListener("click",editItem); 
@@ -123,19 +152,23 @@ function editItem(){
             editing=true 
         
         //console.log(active_row)
-        tds = active_row.childNodes
+        if (active_row){
+            tds = active_row.childNodes
 
-        console.log(tds)
+            console.log(tds)
 
        
-        tds.forEach(function(node,index){
-           console.log(node.firstChild)
-           console.log(node.nodeName)
-           if (node.nodeName == "TD" ) {
-               node.innerHTML = node.firstChild.value
-           }
-        })
+            tds.forEach(function(node,index){
+               console.log(node.firstChild)
+               console.log(node.nodeName)
+               if (node.nodeName == "TD" ) {
+                   node.innerHTML = node.firstChild.value
+              }
+            });
         
+            }
+            active_row.addEventListener("click",editItem);
+    
         }
-        active_row.addEventListener("click",editItem);
-    })
+
+    });
