@@ -26,6 +26,8 @@ function rebuildTable(data) {
     const table = document.getElementById('cat_table').getElementsByTagName('tbody')[0];
     table.innerHTML = '';
 
+    const headingsRow = table.insertRow();
+    headingsRow.innerHTML = "<th>Rase</th><th>Størrelse</th><th>Levetid</th><th>Opprinnelse</th><th>Pels</th><th>Pris</th><th></th>";
 
 data.forEach((row) => {
     const newRow = table.insertRow();
@@ -35,7 +37,7 @@ data.forEach((row) => {
     const cell4 = newRow.insertCell(3);
     const cell5 = newRow.insertCell(4);
     const cell6 = newRow.insertCell(5);
-    const cell7 = newRow.insertCell(6);
+    
 
     cell1.textContent = row.rase;
     cell2.textContent = row.størrelse;
@@ -43,7 +45,17 @@ data.forEach((row) => {
     cell4.textContent = row.opprinnelse;
     cell5.textContent = row.pels;
     cell6.textContent = row.pris;
+
+    const deleteButtonCell = newRow.insertCell(6);
+        deleteButtonCell.textContent = "Slett rad";
+        deleteButtonCell.className = "btn";
+        deleteButtonCell.addEventListener("click", removeItem);
+
 });
+    const rows = table.getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].addEventListener("click", editItem);
+}
 }
 
 if (retrievedData) {
@@ -52,33 +64,33 @@ if (retrievedData) {
   }
 
 
-function readTable(){
+  function readTable() {
     const table = document.getElementById('cat_table').getElementsByTagName('tbody')[0];
     const rows = table.getElementsByTagName('tr');
-    console.log(table)
-    const data = [];
+    console.log(table);
+    const rowData = [];
 
-    for (let i = 0; i < rows.length; i++){
+    for (let i = 0; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName('td');
-            if (cells.length > 0){
-            const rowData = {};
-            rowData.rase = cells[0].textContent;
-            rowData.størrelse = cells[1].textContent;
-            rowData.levetid = cells[2].textContent;
-            rowData.opprinnelse = cells[3].textContent;
-            rowData.pels = cells[4].textContent;
-            rowData.pris = cells[5].textContent;
-            data.push(rowData);
+        if (cells.length > 0) {
+            const row = {};
+            row.rase = cells[0].textContent;
+            row.størrelse = cells[1].textContent;
+            row.levetid = cells[2].textContent;
+            row.opprinnelse = cells[3].textContent;
+            row.pels = cells[4].textContent;
+            row.pris = cells[5].textContent;
+            rowData.push(row);
         }
     }
 
-    return data;
+    return rowData;
 }
-
 
 function removeItem(){
     this.parentNode.remove();
     console.log("delete button")   
+    
 } 
 
 save_button.addEventListener("click", function(){
@@ -96,37 +108,38 @@ save_button.addEventListener("click", function(){
     }
 
 add_button.addEventListener("click", function(){
-    console.log(rase_input.value)
-
-    tbody.innerHTML += "<tr class='row' id='edit" +b+"'> <td>" + rase_input.value + "</td> <td>" + størrelse_input.value +
-    "</td> <td>" + levetid_input.value + "</td> <td>" + opprinnelse_input.value +"</td> <td>" + 
-    pels_input.value + "</td> <td>" + pris_input.value + "</td> <td class='btn' id='delete" +a+"'>Slett rad</td></tr>"
-
-    //var button_1 = document.getElementById("delete" + a)
-    //console.log(button_1)
-    //button_1.addEventListener("click", removeItem);
-
-
-    var elements = document.getElementsByClassName("btn"); 
-    for (var i = 0; i < elements.length; i++){
-    elements[i].addEventListener("click", removeItem);
-    }
-
-    addEventListenersToButtons();
-
-    var cat_rows = document.getElementsByClassName("row");
-    for (var i = 0; i < elements.length; i++){
-        if (editing == true) {
-            cat_rows[i].addEventListener("click", editItem);
-            console.log(cat_rows, "update events added")
-        }    
+    console.log(rase_input.value);
     
-    }                                   
-    b += 1
-    a += 1
-    console.log("button clicked")
-})
 
+    const newRow = document.createElement("tr");
+    newRow.className = "row";
+    newRow.id = "edit" + b;
+    
+    newRow.innerHTML = `
+        <td>${rase_input.value}</td>
+        <td>${størrelse_input.value}</td>
+        <td>${levetid_input.value}</td>
+        <td>${opprinnelse_input.value}</td>
+        <td>${pels_input.value}</td>
+        <td>${pris_input.value}</td>
+        <td class="btn" id="delete${a}">Slett rad</td>
+    `;
+    
+        // Add the new row to the table body
+    tbody.appendChild(newRow);
+    
+        // Add event listener to the newly added "Slett rad" cell
+    const lastCell = newRow.querySelector(`#delete${a}`);
+    lastCell.addEventListener("click", removeItem);
+    
+        // Add event listener to the new row
+    newRow.addEventListener("click", editItem);
+    
+    a += 1;
+    b += 1;
+    console.log("button clicked");
+});
+    
 function editItem(){        
     //console.log(this)   
      
@@ -136,7 +149,7 @@ function editItem(){
             //console.log(tds)
             tds.forEach(function(node,index){
                 console.log(node,index)
-                if (index != 13){
+                if (index != 12){
                     node.innerHTML = "<input type='text' value='"+node.innerHTML +"'>"
                 } else (
                     node.innerHTML = "Slett rad"
@@ -148,10 +161,7 @@ function editItem(){
         //legg til eventlistener igjen-enter
         //this.removeEventListener("click",editItem); 
      }  
-        
-    
     }
-
 
 
     window.addEventListener("keypress", function(event, ) {
